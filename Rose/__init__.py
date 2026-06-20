@@ -36,7 +36,6 @@ aiohttpsession = ClientSession(loop=loop)
 
 # arq = ARQ(Config.ARQ_API_URL, Config.ARQ_API_KEY, aiohttpsession)
 
-# إضافة خاصية ipv6 وتجاوز فحص الوقت الصارم لتفادي خطأ التزامن
 bot = Client(
     "supun",
     bot_token=Config.BOT_TOKEN, 
@@ -44,6 +43,9 @@ bot = Client(
     api_hash=Config.API_HASH,
     ipv6=True
 )
+
+# إجبار الكلاينت على تعديل فارق الوقت تلقائياً مع تليجرام قبل تشغيل الدالة المستمرة
+bot.session.session_time_offset = 0
 
 bot.start()
 
@@ -54,6 +56,9 @@ app = Client(
     api_hash=Config.API_HASH1,
     ipv6=True
 )
+
+app.session.session_time_offset = 0
+
 app.start()
 
 x = app.get_me()
