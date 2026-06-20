@@ -19,3 +19,4 @@ anthropic
 anthropic
 psycopg2-binary
 sqlalchemy
+aiohttp==3.9.5
