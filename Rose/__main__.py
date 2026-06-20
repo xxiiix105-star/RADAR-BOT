@@ -51,6 +51,17 @@ HELPABLE = {}
 async def start_bot():
     global HELPABLE
 
+    # Pre-seed MsgId with real system time to fix BadMsgNotification [16]
+    import time as _time
+    from pyrogram.session.internals.msg_id import MsgId
+    MsgId.set_server_time(_time.time())
+
+    # Start pyrogram clients inside the async event loop (correct pattern)
+    await bot.start()
+    await app.start()
+    from Rose import _init_bot_info
+    await _init_bot_info()
+
     for module in ALL_MODULES:
         imported_module = importlib.import_module("Rose.plugins." + module)
         if (
@@ -117,6 +128,7 @@ async def start_bot():
     await aiohttpsession.close()
     print("Stopping clients")
     await app.stop()
+    await bot.stop()
     print("Cancelling asyncio tasks")
     for task in asyncio.all_tasks():
         task.cancel()
@@ -271,7 +283,4 @@ async def help_button(client, query, _):
 
 if __name__ == "__main__":
     install()
-    with closing(loop):
-        with suppress(asyncio.exceptions.CancelledError):
-            loop.run_until_complete(start_bot())
-        loop.run_until_complete(asyncio.sleep(1.0)) 
+    loop.run_until_complete(start_bot())

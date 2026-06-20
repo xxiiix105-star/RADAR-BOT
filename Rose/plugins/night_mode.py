@@ -62,7 +62,7 @@ async def job_close():
                 can_pin_messages=False,  
                 can_change_info=False))
         
-scheduler = AsyncIOScheduler(timezone="Asia/colombo")
+scheduler = AsyncIOScheduler(timezone="Asia/Colombo")
 scheduler.add_job(job_close, trigger="cron", hour=23, minute=59)
 scheduler.start()
 

@@ -1,5 +1,5 @@
 # Shaheen database module initialization
-from Shaheen.db.pg_store import (
+from pgstore import (
     MongoDB,
     SyncCollection,
     AsyncCollection,

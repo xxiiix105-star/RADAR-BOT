@@ -21,12 +21,10 @@ DB_URI = Config.BASE_DB
 MONGO_URL = Config.MONGO_URL
 OWNER_ID = Config.OWNER_ID
 
-# Initialize PostgreSQL pool
-from Shaheen.db.pg_store import get_pool, PGDatabase, init_store
+from pgstore import get_pool, PGDatabase, init_store
 get_pool()
 init_store()
 
-# Replace MongoDB clients with PostgreSQL-backed objects
 dbn = PGDatabase()
 db = PGDatabase()
 
@@ -38,30 +36,33 @@ bot = Client(
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID,
     api_hash=Config.API_HASH,
-    ipv6=True
+    ipv6=False
 )
-
-bot.start()
-bot.session.session_time_offset = 0
 
 app = Client(
     "app2",
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID1,
     api_hash=Config.API_HASH1,
-    ipv6=True
+    ipv6=False
 )
 
-app.start()
-app.session.session_time_offset = 0
-
-x = app.get_me()
-
 BOT_ID = int(Config.BOT_TOKEN.split(":")[0])
-BOT_NAME = x.first_name + (x.last_name or "")
-BOT_USERNAME = x.username
-BOT_MENTION = x.mention
-BOT_DC_ID = x.dc_id
+BOT_NAME = "Shaheen"
+BOT_USERNAME = Config.BOT_USERNAME or ""
+BOT_MENTION = f"@{BOT_USERNAME}" if BOT_USERNAME else "Shaheen"
+BOT_DC_ID = 1
+
+async def _init_bot_info():
+    global BOT_NAME, BOT_USERNAME, BOT_MENTION, BOT_DC_ID
+    try:
+        me = await app.get_me()
+        BOT_NAME = me.first_name + (me.last_name or "")
+        BOT_USERNAME = me.username or ""
+        BOT_MENTION = me.mention
+        BOT_DC_ID = me.dc_id
+    except Exception as e:
+        print(f"Could not fetch bot info: {e}")
 
 async def eor(msg: Message, **kwargs):
     func = (

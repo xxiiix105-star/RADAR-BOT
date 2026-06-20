@@ -10,7 +10,7 @@ from Shaheen.utils.commands import command
 from Shaheen.utils.lang import language
 from Shaheen.utils.custom_filters import can_change_filter
 from button import Nightmode
-from Shaheen.db.pg_store import SyncCollection
+from pgstore import SyncCollection
 
 nightmod = SyncCollection('nightmodes')
 night    = SyncCollection('night')

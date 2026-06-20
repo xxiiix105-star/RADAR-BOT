@@ -2,7 +2,7 @@
 Rose/mongo/__init__.py — PostgreSQL-backed drop-in for the old pymongo layer.
 All collection names are preserved so every plugin continues to work unchanged.
 """
-from Shaheen.db.pg_store import PGDatabase, MongoDB, get_pool, init_store
+from pgstore import PGDatabase, MongoDB, get_pool, init_store
 
 # Ensure the PostgreSQL store is initialised
 get_pool()

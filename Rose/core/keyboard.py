@@ -1,4 +1,4 @@
-from pykeyboard import InlineKeyboard
+from pyrogram.types import InlineKeyboardMarkup as InlineKeyboard
 
 from pyrogram.types import InlineKeyboardButton as Ikb
 

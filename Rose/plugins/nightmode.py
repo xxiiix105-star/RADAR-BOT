@@ -5,7 +5,7 @@ from pyrogram import filters
 from pyrogram.types import ChatPermissions,Message
 from Rose import app
 from Rose.utils.filter_groups import nm_g
-from Shaheen.db.pg_store import SyncCollection
+from pgstore import SyncCollection
 from lang import get_command
 from Rose.utils.commands import command
 from Rose.utils.lang import language

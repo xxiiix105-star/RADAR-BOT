@@ -1,6 +1,6 @@
 import requests
 from pyrogram import filters
-from Rose import app,eor,arq
+from Rose import app,eor
 from gpytranslate import Translator
 from pyrogram.errors import PeerIdInvalid
 from pyrogram.types import Message, User
@@ -195,13 +195,7 @@ async def telegraph(client, message):
         os.remove(download_location)
 
 async def quotify(messages: list):
-    response = await arq.quotly(messages)
-    if not response.ok:
-        return [False, response.result]
-    sticker = response.result
-    sticker = BytesIO(sticker)
-    sticker.name = "sticker.webp"
-    return [True, sticker]
+    return [False, "Quote feature is unavailable (ARQ service removed)."]
 
 def getArg(message: Message) -> str:
     arg = message.text.strip().split(None, 1)[1].strip()

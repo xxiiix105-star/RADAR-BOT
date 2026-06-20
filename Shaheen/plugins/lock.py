@@ -13,7 +13,7 @@ from Shaheen import app, app as pbot, LOG_GROUP_ID
 from Shaheen.utils.custom_filters import admin_filter
 from button import Locks
 from Shaheen.core.decorators.permissions import current_chat_permissions, member_permissions
-from Shaheen.db.pg_store import SyncCollection
+from pgstore import SyncCollection
 
 lockdb = SyncCollection('lockdb1')
 

@@ -13,7 +13,7 @@ from Rose import app, app as pbot, LOG_GROUP_ID
 from Rose.utils.custom_filters import admin_filter
 from button import Locks
 from Rose.core.decorators.permissions import current_chat_permissions, member_permissions
-from Shaheen.db.pg_store import SyncCollection
+from pgstore import SyncCollection
 
 lockdb = SyncCollection("lockdb1")
 

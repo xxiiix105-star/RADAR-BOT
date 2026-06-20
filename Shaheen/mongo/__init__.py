@@ -2,7 +2,7 @@
 Shaheen bot — database collection registry.
 All MongoDB/motor references replaced with PostgreSQL-backed equivalents.
 """
-from Shaheen.db.pg_store import MongoDB, AsyncCollection, SyncCollection
+from pgstore import MongoDB, AsyncCollection, SyncCollection
 
 # ── Async collections (motor-style, used with `await`) ────────────────────
 langdb        = AsyncCollection('language')

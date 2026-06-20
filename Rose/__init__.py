@@ -8,7 +8,6 @@ from config import Config
 import pytz
 from datetime import datetime
 
-# استخدام التوقيت العالمي لضبط التزامن
 IST = pytz.timezone('UTC')
 current_datetime = datetime.now(IST)
 date = current_datetime.strftime("%a/%d/%b/%Y %H:%M:%S")
@@ -22,49 +21,48 @@ DB_URI = Config.BASE_DB
 MONGO_URL = Config.MONGO_URL
 OWNER_ID = Config.OWNER_ID
 
-# تهيئة مخزن وقاعدة بيانات PostgreSQL بالمسار الجديد المستقر
-from Shaheen.db.pg_store import get_pool, PGDatabase, init_store
+from pgstore import get_pool, PGDatabase, init_store
 get_pool()
 init_store()
 
-# استبدال كائنات الـ MongoDB بكائنات الـ PostgreSQL الجديدة
 dbn = PGDatabase()
 db = PGDatabase()
 
 loop = asyncio.get_event_loop()
 aiohttpsession = ClientSession(loop=loop)
 
-# 1. تعريف وتشغيل البوت الأساسي مع تصفير فارق الوقت فوراً
 bot = Client(
     "supun",
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID,
     api_hash=Config.API_HASH,
-    ipv6=True
+    ipv6=False
 )
 
-bot.start()
-bot.session.session_time_offset = 0
-
-# 2. تعريف وتشغيل الحساب المساعد مع تصفير فارق الوقت فوراً
 app = Client(
     "app2",
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID1,
     api_hash=Config.API_HASH1,
-    ipv6=True
+    ipv6=False
 )
 
-app.start()
-app.session.session_time_offset = 0
-
-x = app.get_me()
-
 BOT_ID = int(Config.BOT_TOKEN.split(":")[0])
-BOT_NAME = x.first_name + (x.last_name or "")
-BOT_USERNAME = x.username
-BOT_MENTION = x.mention
-BOT_DC_ID = x.dc_id
+BOT_NAME = "Shaheen"
+BOT_USERNAME = Config.BOT_USERNAME or ""
+BOT_MENTION = f"@{BOT_USERNAME}" if BOT_USERNAME else "Shaheen"
+BOT_DC_ID = 1
+
+async def _init_bot_info():
+    global BOT_NAME, BOT_USERNAME, BOT_MENTION, BOT_DC_ID
+    try:
+        me = await app.get_me()
+        BOT_NAME = me.first_name + (me.last_name or "")
+        BOT_USERNAME = me.username or ""
+        BOT_MENTION = me.mention
+        BOT_DC_ID = me.dc_id
+    except Exception as e:
+        print(f"Could not fetch bot info: {e}")
 
 async def eor(msg: Message, **kwargs):
     func = (
@@ -74,4 +72,3 @@ async def eor(msg: Message, **kwargs):
     )
     spec = getfullargspec(func.__wrapped__).args
     return await func(**{k: v for k, v in kwargs.items() if k in spec})
-    

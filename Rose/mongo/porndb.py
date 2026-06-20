@@ -1,4 +1,4 @@
-from Shaheen.db.pg_store import AsyncCollection
+from pgstore import AsyncCollection
 
 _nsfwdb = AsyncCollection("nsfw")
 

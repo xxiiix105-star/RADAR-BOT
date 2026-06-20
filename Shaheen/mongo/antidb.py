@@ -1,4 +1,4 @@
-from Shaheen.db.pg_store import SyncCollection
+from pgstore import SyncCollection
 
 anitcdb = SyncCollection("ANTICHANNEL")
 
