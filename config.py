@@ -28,7 +28,7 @@ class Config(object):
         ARQ_API_URL = environ.get("ARQ_API_URL")
         #Get this from @ARQRobot.
         ARQ_API_KEY = environ.get("ARQ_API_KEY")
-        #now you can set custom command handler for rose like : / ! ,
+        #now you can set custom command handler like : / ! ,
         COMMAND_PREFIXES = environ.get("COMMAND_PREFIXES")
         #The Telegram channel id you want focus user.(User can't start your bot without join it)
         F_SUB_CHANNEL = environ.get("F_SUB_CHANNEL")
@@ -38,90 +38,94 @@ class Config(object):
         ANTHROPIC_API_KEY = environ.get("ANTHROPIC_API_KEY")
 
 class var(object):
-        #Rose group start message here 
-        group_start_text = "Hey! Whaddya want!"
-        #Rose help menu text message here 
+        #Shaheen group start message here 
+        group_start_text = "🇵🇸 Shaheen is here to protect your group. Use /help to see all commands."
+        #Shaheen help menu text message here 
         help_text = """
-**Welcome to help menu**
+🇵🇸 **Shaheen — Help Menu**
 
-Get oudda my face!
+Welcome! I am **Shaheen**, your powerful group management assistant.
 
-**All commands can be used with the following: / **"""
-        #Rose start menu conections(split commands on start)
-        Connection_text_start = "** Run /connections to view or disconnect from groups!**"
-        #Rose private start message here
+Use the buttons below to explore my features, or type a command directly.
+
+**All commands can be used with the following prefix: /**"""
+        #Shaheen start menu connections (split commands on start)
+        Connection_text_start = "🇵🇸 **Run /connections to view or disconnect from groups!**"
+        #Shaheen private start message here
         pm_start_text = """
-Hey there {},my name is {}
-Your unfriendly neighbourhood grandma bitch """
-        #Languages change text menu here 
-        lang_text = "Choose Your languages"
+🇵🇸 **Hello {}, I am {}!**
 
-        #Languages change button menu here this will show current languages rose can message
+I am a powerful group management bot built to keep your community safe and organised.
+
+Use the buttons below to get started, or add me to your group and let me do the work!"""
+        #Languages change text menu here 
+        lang_text = "🇵🇸 Choose your language:"
+
+        #Languages change button menu here — all decorative flags updated to 🇵🇸
         lang_keyboard = InlineKeyboardMarkup(
                 [
                         [
-                                InlineKeyboardButton(text="🇱🇷 English", callback_data="languages_en")
+                                InlineKeyboardButton(text="🇵🇸 English", callback_data="languages_en")
                         ],
                         [
-                                InlineKeyboardButton(text="🇱🇰 සිංහල", callback_data="languages_si"), 
-                                InlineKeyboardButton(text="🇮🇳 हिन्दी", callback_data="languages_hi")
+                                InlineKeyboardButton(text="🇵🇸 සිංහල", callback_data="languages_si"), 
+                                InlineKeyboardButton(text="🇵🇸 हिन्दी", callback_data="languages_hi")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇮🇹 Italiano", callback_data="languages_it"), 
-                                InlineKeyboardButton(text="🇮🇳 తెలుగు", callback_data="languages_ta")
+                                InlineKeyboardButton(text="🇵🇸 Italiano", callback_data="languages_it"), 
+                                InlineKeyboardButton(text="🇵🇸 తెలుగు", callback_data="languages_ta")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇮🇩 Indonesia", callback_data="languages_id"), 
-                                InlineKeyboardButton(text="🇦🇪 عربي", callback_data="languages_ar")
+                                InlineKeyboardButton(text="🇵🇸 Indonesia", callback_data="languages_id"), 
+                                InlineKeyboardButton(text="🇵🇸 عربي", callback_data="languages_ar")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇮🇳 മലയാളം", callback_data="languages_ml"), 
-                                InlineKeyboardButton(text="🇲🇼 Chichewa", callback_data="languages_ny")
+                                InlineKeyboardButton(text="🇵🇸 മലയാളം", callback_data="languages_ml"), 
+                                InlineKeyboardButton(text="🇵🇸 Chichewa", callback_data="languages_ny")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇩🇪 German", callback_data="languages_ge"), 
-                                InlineKeyboardButton(text="🇷🇺 Russian", callback_data="languages_ru")
+                                InlineKeyboardButton(text="🇵🇸 German", callback_data="languages_ge"), 
+                                InlineKeyboardButton(text="🇵🇸 Russian", callback_data="languages_ru")
                         ], 
                         [
                                 InlineKeyboardButton("« Back", callback_data='startcq')
                         ]
                 ]
 )
-        #Rose informations button menu here
+        #Shaheen informations button menu here
         about_buttons = InlineKeyboardMarkup(
                 [
                         [
-                                InlineKeyboardButton(text="👥Support Group", url="https://t.me/szrosesupport"),
-                                InlineKeyboardButton(text="👤News Channel", url="https://t.me/Theszrosebot")
+                                InlineKeyboardButton(text="🇵🇸 Support Group", url="https://t.me/szrosesupport"),
+                                InlineKeyboardButton(text="🇵🇸 News Channel", url="https://t.me/Theszrosebot")
                         ], 
                         [ 
-                                InlineKeyboardButton(text="⚒ Source Code", url="https://github.com/szsupunma/sz-rosebot"),
-                                InlineKeyboardButton(text="📓 Documentation", url="https://szsupunma.gitbook.io/rose-bot")
+                                InlineKeyboardButton(text="⚒ Source Code", url="https://github.com/yousef94s/Shaheen-saved-me"),
+                                InlineKeyboardButton(text="📓 Documentation", url="https://github.com/yousef94s/Shaheen-saved-me")
                         ], 
                         [
-                                InlineKeyboardButton(text="🖥 How To Deploy Me", url="https://youtu.be/ZUvFSU8W7VA")
+                                InlineKeyboardButton(text="🖥 How To Deploy", url="https://github.com/yousef94s/Shaheen-saved-me")
                         ],
                         [
                                 InlineKeyboardButton("« Back", callback_data='startcq')
                         ]
                 ]
 )
-        #Rose private start button menu here
+        #Shaheen private start button menu here
         home_keyboard_pm = InlineKeyboardMarkup(
                 [
                         [
-                                InlineKeyboardButton(text="Add Me To Your Chat 🎉",url=f"http://t.me/{Config.BOT_USERNAME}?startgroup=new")
+                                InlineKeyboardButton(text="🇵🇸 Add Me To Your Group",url=f"http://t.me/{Config.BOT_USERNAME}?startgroup=new")
                         ],
                         [
                                 InlineKeyboardButton(text="About ✨",callback_data="_about"),
-                                InlineKeyboardButton(text="languages 🌏",callback_data="_langs")
+                                InlineKeyboardButton(text="🇵🇸 Languages",callback_data="_langs")
                         ],
                         [
                                 InlineKeyboardButton(text="Help Menu ⚒",callback_data="bot_commands")
                         ],
                         [
-                                InlineKeyboardButton(text="Website 💭",url=f"https://szrosebot.ml"),
-                                InlineKeyboardButton(text="News Channel 📢",url=f"https://t.me/szroseupdates")
+                                InlineKeyboardButton(text="🇵🇸 News Channel 📢",url=f"https://t.me/szroseupdates")
                         ]
                 ]
 )
