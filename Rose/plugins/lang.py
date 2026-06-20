@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from Rose.utils.lang import language
 from button import Languages
 
-# Static language-picker keyboard shown by /lang command
+# ── Language-picker keyboard (shown by /lang with no argument) ────────────
 LANG_KEYBOARD = InlineKeyboardMarkup(
     [
         [InlineKeyboardButton(text="🇬🇧 English",   callback_data="languages_en")],
@@ -33,8 +33,22 @@ LANG_KEYBOARD = InlineKeyboardMarkup(
     ]
 )
 
-# Ordered list of (module_key, translation_dict_key) pairs that map
-# each help module to its btn_* key in the language YAML files.
+# Human-readable names for every supported language code.
+# Used in /setlang feedback and the available-codes list.
+LANG_NAMES = {
+    "en": "🇬🇧 English",
+    "si": "🇱🇰 සිංහල",
+    "hi": "🇮🇳 हिन्दी",
+    "it": "🇮🇹 Italiano",
+    "ta": "🇮🇳 తెలుగు",
+    "id": "🇮🇩 Indonesia",
+    "ar": "🇸🇦 عربي",
+    "ml": "🇮🇳 മലയാളം",
+    "ny": "🇲🇼 Chichewa",
+    "ge": "🇩🇪 Deutsch",
+}
+
+# ── Module-button mapping (module_key → btn_* dict key) ───────────────────
 MODULE_BTN_KEYS = [
     ("admin",       "btn_admin"),
     ("locks",       "btn_locks"),
@@ -61,7 +75,7 @@ MODULE_BTN_KEYS = [
     ("sticker",     "btn_sticker"),
 ]
 
-# English fallbacks for every module button (mirrors button.py labels)
+# English fallbacks — used when a language file is missing a btn_* key.
 BTN_FALLBACKS = {
     "btn_admin":       "Admin",
     "btn_locks":       "Locks",
@@ -89,13 +103,13 @@ BTN_FALLBACKS = {
 }
 
 
+# ── Helpers ───────────────────────────────────────────────────────────────
+
 def build_translated_help_keyboard(_, helpable: dict) -> InlineKeyboardMarkup:
     """
-    Dynamically build the help-module keyboard using labels from the
-    selected language's translation dictionary.
-
-    Only modules present in *helpable* (populated at runtime) are shown.
-    Two buttons per row, with a localised Back button at the bottom.
+    Build the help-module keyboard entirely from the live translation dict.
+    Called fresh on every callback — never serves cached / stale labels.
+    Two buttons per row; localised Back button at the bottom.
     """
     buttons = []
     row = []
@@ -120,61 +134,154 @@ def build_translated_help_keyboard(_, helpable: dict) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(buttons)
 
 
+def _helpable() -> dict:
+    """Lazy-import HELPABLE from __main__ (populated after plugin load)."""
+    try:
+        import Rose.__main__ as _main
+        return _main.HELPABLE
+    except Exception:
+        return {}
+
+
+async def _is_admin(chat_id: int, user_id: int) -> bool:
+    """Return True if user is admin or creator in the given chat."""
+    try:
+        member = await app.get_chat_member(chat_id, user_id)
+        return member.status in ("administrator", "creator")
+    except Exception:
+        return False
+
+
+async def _apply_language(chat_id: int, selected: str, actor_mention: str) -> tuple:
+    """
+    Validate, persist, and return (translation_dict, translated_header,
+    translated_keyboard) for the selected language code.
+    Raises ValueError with a user-facing message on failure.
+    """
+    try:
+        _ = get_string(selected)
+    except (KeyError, Exception):
+        available = "  •  ".join(
+            f"`{code}` {name}" for code, name in LANG_NAMES.items()
+        )
+        raise ValueError(
+            f"⚠️ Language code `{selected}` is not available.\n\n"
+            f"**Supported codes:**\n{available}"
+        )
+
+    await set_lang(chat_id, selected)
+    header = _["setting_2"].format(actor_mention)
+    keyboard = build_translated_help_keyboard(_, _helpable())
+    return _, header, keyboard
+
+
+# ── /lang — interactive picker ────────────────────────────────────────────
+
 @app.on_message(filters.command("lang"))
 @language
 async def langs_command(client, message: Message, _):
-    userid = message.from_user.id if message.from_user else None
+    user_id   = message.from_user.id if message.from_user else None
     chat_type = message.chat.type
-    header = _["setting_1"].format(message.from_user.first_name)
+    header    = _["setting_1"].format(message.from_user.first_name)
+
     if chat_type == "private":
         await message.reply_text(header, reply_markup=LANG_KEYBOARD)
-    elif chat_type in ["group", "supergroup"]:
-        group_id = message.chat.id
-        st = await app.get_chat_member(group_id, userid)
-        if st.status not in ("administrator", "creator"):
+
+    elif chat_type in ("group", "supergroup"):
+        if not await _is_admin(message.chat.id, user_id):
             return
         try:
             await message.reply_text(header, reply_markup=LANG_KEYBOARD)
         except Exception as e:
-            return await app.send_message(LOG_GROUP_ID, text=str(e))
+            if LOG_GROUP_ID:
+                await app.send_message(LOG_GROUP_ID, text=str(e))
 
+
+# ── /setlang <code> — direct one-shot language setter ────────────────────
+
+@app.on_message(filters.command("setlang"))
+@language
+async def setlang_command(client, message: Message, _):
+    """
+    Usage:
+      /setlang ar        → immediately switch to Arabic (admin-only in groups)
+      /setlang           → show the interactive picker (same as /lang)
+
+    Supported codes: en  si  hi  it  ta  id  ar  ml  ny  ge
+    """
+    user_id   = message.from_user.id if message.from_user else None
+    chat_type = message.chat.type
+
+    # No argument → fall back to the interactive picker
+    if len(message.command) < 2:
+        header = _["setting_1"].format(message.from_user.first_name)
+        if chat_type == "private":
+            return await message.reply_text(header, reply_markup=LANG_KEYBOARD)
+        if chat_type in ("group", "supergroup"):
+            if not await _is_admin(message.chat.id, user_id):
+                return await message.reply_text(
+                    "⛔️ Only group admins can change the language."
+                )
+            return await message.reply_text(header, reply_markup=LANG_KEYBOARD)
+
+    selected = message.command[1].lower().strip()
+    chat_id  = message.chat.id
+
+    # Admin gate for groups
+    if chat_type in ("group", "supergroup"):
+        if not await _is_admin(chat_id, user_id):
+            return await message.reply_text(
+                "⛔️ Only group admins can change the language."
+            )
+
+    # Guard: already using this language
+    current = await get_lang(chat_id)
+    if current == selected:
+        lang_name = LANG_NAMES.get(selected, f"`{selected}`")
+        return await message.reply_text(
+            f"ℹ️ The language is already set to **{lang_name}**."
+        )
+
+    # Validate, persist, build response
+    try:
+        _, header, keyboard = await _apply_language(
+            chat_id, selected, message.from_user.mention
+        )
+    except ValueError as err:
+        return await message.reply_text(str(err))
+
+    lang_name = LANG_NAMES.get(selected, selected)
+    await message.reply_text(
+        f"✅ Language set to **{lang_name}**\n\n{header}",
+        reply_markup=keyboard,
+        disable_web_page_preview=True,
+    )
+
+
+# ── Callback: language-picker button pressed ──────────────────────────────
 
 @app.on_callback_query(filters.regex(r"^languages_"))
 async def language_markup(client, CallbackQuery):
-    selected_lang = CallbackQuery.data.split("_")[1]
-    chat_id = CallbackQuery.message.chat.id
+    selected = CallbackQuery.data.split("_")[1]
+    chat_id  = CallbackQuery.message.chat.id
+    old      = await get_lang(chat_id)
 
-    old = await get_lang(chat_id)
-
-    if str(old) == str(selected_lang):
+    if str(old) == str(selected):
         return await CallbackQuery.answer(
             "⛔️ You're already using this language.", show_alert=False
         )
 
-    # Answer the callback immediately to prevent FloodWait / timeout
+    # Answer immediately — prevents Telegram timeout / FloodWait
     await CallbackQuery.answer("✅ Language changed successfully!", show_alert=False)
 
-    # Validate that the language exists in our translation files
     try:
-        _ = get_string(selected_lang)
-    except (KeyError, Exception):
+        _, header, keyboard = await _apply_language(
+            chat_id, selected, CallbackQuery.from_user.mention
+        )
+    except ValueError:
         return await CallbackQuery.answer(
             "⚠️ This language is under construction.", show_alert=True
         )
-
-    # Persist the selection to PostgreSQL so it survives restarts
-    await set_lang(chat_id, selected_lang)
-
-    # Lazy-import HELPABLE (populated after all plugins are loaded)
-    try:
-        import Rose.__main__ as _main
-        helpable = _main.HELPABLE
-    except Exception:
-        helpable = {}
-
-    # Build fully-translated header and keyboard in one edit call
-    header = _["setting_2"].format(CallbackQuery.from_user.mention)
-    keyboard = build_translated_help_keyboard(_, helpable)
 
     await CallbackQuery.message.edit(
         text=header,
@@ -183,14 +290,21 @@ async def language_markup(client, CallbackQuery):
     )
 
 
+# ── Module metadata ───────────────────────────────────────────────────────
+
 __MODULE__ = f"{Languages}"
 __HELP__ = """
-Not every group speaks fluent english; some groups would rather have Shaheen respond in their own language.
-
-This is where translations come in; you can change the language of most replies to be in the language of your choice!
+Not every group speaks fluent English; some groups would rather have Shaheen respond in their own language.
 
 **Admin commands:**
-- /lang : Set your preferred language.
+- /lang : Open the interactive language picker.
+- /setlang `<code>` : Set the language directly without a menu.
+
+**Supported language codes:**
+`en` 🇬🇧  `ar` 🇸🇦  `hi` 🇮🇳  `si` 🇱🇰  `it` 🇮🇹
+`id` 🇮🇩  `ml` 🇮🇳  `ny` 🇲🇼  `ge` 🇩🇪  `ta` 🇮🇳
+
+**Example:** `/setlang ar` switches the bot to Arabic instantly.
 """
 __helpbtns__ = (
     [

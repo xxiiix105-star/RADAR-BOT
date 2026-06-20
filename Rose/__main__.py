@@ -116,6 +116,7 @@ async def start_bot():
             BotCommand("flood",       "Configure anti-flood"),
             BotCommand("captcha",     "Toggle captcha for new members"),
             BotCommand("lang",        "Change bot language"),
+            BotCommand("setlang",     "Set language directly, e.g. /setlang ar"),
             BotCommand("connections", "Manage group connections"),
             BotCommand("approve",     "Approve a user"),
             BotCommand("blacklist",   "View blacklisted words"),
