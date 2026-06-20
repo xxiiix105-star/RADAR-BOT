@@ -61,31 +61,31 @@ Use the buttons below to get started, or add me to your group and let me do the 
         #Languages change text menu here 
         lang_text = "🇵🇸 Choose your language:"
 
-        #Languages change button menu here — all decorative flags updated to 🇵🇸
+        #Languages change button menu here — each language shows its own native flag
         lang_keyboard = InlineKeyboardMarkup(
                 [
                         [
-                                InlineKeyboardButton(text="🇵🇸 English", callback_data="languages_en")
+                                InlineKeyboardButton(text="🇬🇧 English", callback_data="languages_en")
                         ],
                         [
-                                InlineKeyboardButton(text="🇵🇸 සිංහල", callback_data="languages_si"), 
-                                InlineKeyboardButton(text="🇵🇸 हिन्दी", callback_data="languages_hi")
+                                InlineKeyboardButton(text="🇱🇰 සිංහල", callback_data="languages_si"), 
+                                InlineKeyboardButton(text="🇮🇳 हिन्दी", callback_data="languages_hi")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇵🇸 Italiano", callback_data="languages_it"), 
-                                InlineKeyboardButton(text="🇵🇸 తెలుగు", callback_data="languages_ta")
+                                InlineKeyboardButton(text="🇮🇹 Italiano", callback_data="languages_it"), 
+                                InlineKeyboardButton(text="🇮🇳 తెలుగు", callback_data="languages_ta")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇵🇸 Indonesia", callback_data="languages_id"), 
-                                InlineKeyboardButton(text="🇵🇸 عربي", callback_data="languages_ar")
+                                InlineKeyboardButton(text="🇮🇩 Indonesia", callback_data="languages_id"), 
+                                InlineKeyboardButton(text="🇸🇦 عربي", callback_data="languages_ar")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇵🇸 മലയാളം", callback_data="languages_ml"), 
-                                InlineKeyboardButton(text="🇵🇸 Chichewa", callback_data="languages_ny")
+                                InlineKeyboardButton(text="🇮🇳 മലയാളം", callback_data="languages_ml"), 
+                                InlineKeyboardButton(text="🇲🇼 Chichewa", callback_data="languages_ny")
                         ], 
                         [
-                                InlineKeyboardButton(text="🇵🇸 German", callback_data="languages_ge"), 
-                                InlineKeyboardButton(text="🇵🇸 Russian", callback_data="languages_ru")
+                                InlineKeyboardButton(text="🇩🇪 Deutsch", callback_data="languages_ge"), 
+                                InlineKeyboardButton(text="🇷🇺 Русский", callback_data="languages_ru")
                         ], 
                         [
                                 InlineKeyboardButton("« Back", callback_data='startcq')
@@ -96,8 +96,8 @@ Use the buttons below to get started, or add me to your group and let me do the 
         about_buttons = InlineKeyboardMarkup(
                 [
                         [
-                                InlineKeyboardButton(text="🇵🇸 Support Group", url="https://t.me/szrosesupport"),
-                                InlineKeyboardButton(text="🇵🇸 News Channel", url="https://t.me/Theszrosebot")
+                                InlineKeyboardButton(text="💬 Support Group", url="https://t.me/news_shaheen"),
+                                InlineKeyboardButton(text="📢 News Channel", url="https://t.me/shaheen_ys")
                         ], 
                         [ 
                                 InlineKeyboardButton(text="⚒ Source Code", url="https://github.com/yousef94s/Shaheen-saved-me"),
@@ -125,7 +125,7 @@ Use the buttons below to get started, or add me to your group and let me do the 
                                 InlineKeyboardButton(text="Help Menu ⚒",callback_data="bot_commands")
                         ],
                         [
-                                InlineKeyboardButton(text="🇵🇸 News Channel 📢",url=f"https://t.me/szroseupdates")
+                                InlineKeyboardButton(text="📢 News Channel",url=f"https://t.me/shaheen_ys")
                         ]
                 ]
 )

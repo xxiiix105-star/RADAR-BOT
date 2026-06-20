@@ -8,17 +8,17 @@ from button import Languages
 
 
 keyboard = InlineKeyboardMarkup(
-    [[InlineKeyboardButton(text="🇱🇷 English", callback_data="languages_en")],
+    [[InlineKeyboardButton(text="🇬🇧 English", callback_data="languages_en")],
      [InlineKeyboardButton(text="🇱🇰 සිංහල", callback_data="languages_si"), 
       InlineKeyboardButton(text="🇮🇳 हिन्दी", callback_data="languages_hi")], 
      [InlineKeyboardButton(text="🇮🇹 Italiano", callback_data="languages_it"), 
       InlineKeyboardButton(text="🇮🇳 తెలుగు", callback_data="languages_ta")], 
      [InlineKeyboardButton(text="🇮🇩 Indonesia", callback_data="languages_id"), 
-      InlineKeyboardButton(text="🇦🇪 عربي", callback_data="languages_ar")], 
+      InlineKeyboardButton(text="🇸🇦 عربي", callback_data="languages_ar")], 
      [InlineKeyboardButton(text="🇮🇳 മലയാളം", callback_data="languages_ml"), 
       InlineKeyboardButton(text="🇲🇼 Chichewa", callback_data="languages_ny")], 
-     [InlineKeyboardButton(text="🇩🇪 German", callback_data="languages_ge"), 
-      InlineKeyboardButton(text="🇷🇺 Russian", callback_data="languages_ru")]])
+     [InlineKeyboardButton(text="🇩🇪 Deutsch", callback_data="languages_ge"), 
+      InlineKeyboardButton(text="🇷🇺 Русский", callback_data="languages_ru")]])
 
 
 @app.on_message(filters.command("lang"))
@@ -56,7 +56,7 @@ async def language_markup(_, CallbackQuery):
 
 __MODULE__ = f"{Languages}"
 __HELP__ = """
-Not every group speaks fluent english; some groups would rather have Rose respond in their own language.
+Not every group speaks fluent english; some groups would rather have Shaheen respond in their own language.
 
 This is where translations come in; you can change the language of most replies to be in the language of your choice!
 
@@ -64,14 +64,14 @@ This is where translations come in; you can change the language of most replies 
 - /lang : Set your preferred language.
 """
 __helpbtns__ = (
-    [[InlineKeyboardButton(text="🇱🇷 English", callback_data="languages_en")],
+    [[InlineKeyboardButton(text="🇬🇧 English", callback_data="languages_en")],
      [InlineKeyboardButton(text="🇱🇰 සිංහල", callback_data="languages_si"), 
       InlineKeyboardButton(text="🇮🇳 हिन्दी", callback_data="languages_hi")], 
      [InlineKeyboardButton(text="🇮🇹 Italiano", callback_data="languages_it"), 
       InlineKeyboardButton(text="🇮🇳 తెలుగు", callback_data="languages_ta")], 
      [InlineKeyboardButton(text="🇮🇩 Indonesia", callback_data="languages_id"), 
-      InlineKeyboardButton(text="🇦🇪 عربي", callback_data="languages_ar")], 
+      InlineKeyboardButton(text="🇸🇦 عربي", callback_data="languages_ar")], 
      [InlineKeyboardButton(text="🇮🇳 മലയാളം", callback_data="languages_ml"), 
       InlineKeyboardButton(text="🇲🇼 Chichewa", callback_data="languages_ny")], 
-     [InlineKeyboardButton(text="🇩🇪 German", callback_data="languages_ge"), 
-      InlineKeyboardButton(text="🇷🇺 Russian", callback_data="languages_ru")]])
+     [InlineKeyboardButton(text="🇩🇪 Deutsch", callback_data="languages_ge"), 
+      InlineKeyboardButton(text="🇷🇺 Русский", callback_data="languages_ru")]])

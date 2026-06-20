@@ -1,7 +1,12 @@
 name : English
 
 #menu - menu.py
-menu : "Rose was created on **August 10, 2021**. \nWe are currently developing and maintaining plugins of **WilliamButcherBot**  and **Alita_Robot**, using only the **Pyrogram** library.\n\n• **creator** : [supun](https://t.me/supunma)\n• **Language** : [python 3](https://www.python.org/)\n• **Database** : [Mongo db](https://cloud.mongodb.com/)\n• **Server** : [Heroku](https://heroku.com/)\n• **Build Version** : `2.0`\n\n@Theszrosebot"
+menu : "Shaheen Bot was officially updated and rebranded in June 2026.
+We are actively developing and maintaining advanced features using the Pyrogram library with optimized performance.
+
+• Language: Python 3
+• Database: PostgreSQL
+• Build Version: 3.0"
 back : "« Back"
 
 #main - main.py

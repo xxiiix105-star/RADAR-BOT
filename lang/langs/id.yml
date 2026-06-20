@@ -1,7 +1,12 @@
 name : Indonesia
 
 #menu - menu.py
-menu : "Rose dibuat pada 10 Agustus 2021. Saat ini kami sedang mengembangkan dan memelihara plugin WilliamButcherBot dan Alita_Robot, hanya menggunakan pustaka Pyrogram.\n\n• kreator : [supun](https://t.me/supunma )\n• Bahasa : [python 3](https://www.python.org/)\n• Basis data : [Mongo db](https://cloud.mongodb.com/)\n• Server : [Heroku ](https://heroku.com/)\n• Versi Build : 1.0.9\n\n@Theszrosebot"
+menu : "Shaheen Bot was officially updated and rebranded in June 2026.
+We are actively developing and maintaining advanced features using the Pyrogram library with optimized performance.
+
+• Language: Python 3
+• Database: PostgreSQL
+• Build Version: 3.0"
 back : "« Kembali"
 
 #main - main.py
