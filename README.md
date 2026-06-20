@@ -1,6 +1,6 @@
 <p align="center">
-      <img style="width:100px; height: 100px;"  src="https://i.postimg.cc/VsSf1zzV/Picsart-26-06-20-04-11-38-177.jpg"></p>
-<h1 align="center"><b>Shaheen-saved-me ✨</b></h1>
+      <img style="width:100px; height: 100px;"  src="https://i.postimg.cc/KzXPFBjM/file-0000000068e0720abf8fdaf0c91f3d42.png"></p>
+<h1 align="center"><b>RADAR ✨</b></h1>
 <h2 align="center"><b>The Telegram Bot to manage and protect groups</b></h2>
 <h4 align="center">Rose bot  simplifies the management, administration and security of your group</h4>
 
