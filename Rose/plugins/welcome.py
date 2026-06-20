@@ -179,8 +179,11 @@ async def welcome(_, message: Message):
                         f"Reason: `{fed_reason}`"
                     )
 
-                if await app.chat.ban_member(chat_id, user_id): 
-                        text += '\nAction: `Banned`'
+                try:
+                    await app.ban_chat_member(chat_id, user_id)
+                    text += '\nAction: `Banned`'
+                except Exception:
+                    pass
                         
                 return await message.reply(text)
                  
@@ -239,9 +242,11 @@ my news channel @Theszrosebot.
         if "{chatname}" in text:
                 text = text.replace("{chatname}",(message.chat.title))
         if "{mention}" in text:
-                text = text.replace("{mention}",(await app.get_users(user_id).mention))
+                _u = await app.get_users(user_id)
+                text = text.replace("{mention}", _u.mention)
         if "{id}" in text:
-                text = text.replace("{id}", (await app.get_users(user_id).id))
+                _u = await app.get_users(user_id)
+                text = text.replace("{id}", str(_u.id))
         if "{username}" in text:
                 text = text.replace("{username}", (await app.get_users(user_id)).username)
         if "{first}" in text:

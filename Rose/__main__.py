@@ -51,7 +51,14 @@ from config import var
 from Rose.mongo.chatsdb import add_served_chat
 from Rose.plugins.fsub import ForceSub
 from config import Config
-loop = asyncio.get_event_loop()
+try:
+    loop = asyncio.get_event_loop()
+    if loop.is_closed():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+except RuntimeError:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
 
 flood = {}
 # HELPABLE is now the shared dict in Rose/__init__.py — imported above.

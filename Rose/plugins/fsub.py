@@ -22,7 +22,7 @@ async def ForceSub(bot: Client, event: Message):
            await gh.delete()
            return 400
         except FloodWait as e:
-           await asyncio.sleep(e.x)
+           await asyncio.sleep(e.value)
            fix_ = await ForceSub(bot, event)
            return fix_
     except Exception as err:

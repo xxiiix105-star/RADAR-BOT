@@ -5,8 +5,7 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     Message,
 )
-from Rose.__main__ import HELPABLE
-from Rose import  app
+from Rose import HELPABLE, app
 from Rose.mongo.disabledb import Disabling
 from Rose.core.decorators.permissions import adminsOnly
 from lang import get_command
@@ -27,7 +26,7 @@ async def disableit(client, message: Message, _):
         return await message.reply_text(_["disable1"])
     disable_cmd_keys = sorted(
         k
-        for j in [HELPABLE[i]["disablable"] for i in list(HELPABLE.keys())]
+        for j in [getattr(HELPABLE[i], "disablable", []) for i in list(HELPABLE.keys())]
         for k in j
     )
     db = Disabling(message.chat.id)
@@ -85,7 +84,7 @@ async def enableit(client, message: Message, _):
 async def disabling(_, m: Message): 
     disable_cmd_keys = sorted(
         k
-        for j in [HELPABLE[i]["disablable"] for i in list(HELPABLE.keys())]
+        for j in [getattr(HELPABLE[i], "disablable", []) for i in list(HELPABLE.keys())]
         for k in j
     )
     tes = "List of commnds that can be disabled:\n"

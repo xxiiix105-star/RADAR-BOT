@@ -42,7 +42,7 @@ async def kickFunc(client, message: Message, _):
     if not user_id:
         return await message.reply_text(_["ban2"])  
     st = await client.get_chat_member(message.chat.id, user_id)
-    if(st.status == "administrator" and st.status == "creator"):
+    if st.status in ("administrator", "creator"):
         return
     try:
         await message.chat.ban_member(user_id)
@@ -63,7 +63,7 @@ async def kickFunc(client, message: Message, _):
     if user_id == BOT_ID:
         return await message.reply_text(_["ban4"])
     st = await client.get_chat_member(message.chat.id, user_id)
-    if (st.status == "administrator" and st.status == "creator"):
+    if st.status in ("administrator", "creator"):
         return await message.reply_text(_["ban7"])
     mention = (await app.get_users(user_id)).mention
     msg = f"{mention}** Was Kicked By:** {message.from_user.mention if message.from_user else 'Anon'}\n**Reason:** {reason or 'No Reason Provided.'}"
@@ -84,7 +84,7 @@ async def banFunc(client, message: Message, _):
     if user_id == BOT_ID:
         return await message.reply_text(_["ban4"])
     st = await client.get_chat_member(message.chat.id, user_id)
-    if (st.status == "administrator" and st.status == "creator"):
+    if st.status in ("administrator", "creator"):
         return await app.send_message(chat_id = message.chat.id,text = "I can't ban admin in this group !")
     try:
         mention = (await app.get_users(user_id)).mention
@@ -143,7 +143,7 @@ async def kickunc(client, message: Message, _):
     if not user_id:
         return await message.reply_text("Can't find user to ban")   
     st = await app.get_chat_member(message.chat.id, user_id)
-    if (st.status == "administrator" and st.status == "creator"):
+    if st.status in ("administrator", "creator"):
         return     
     try:
         await message.chat.ban_member(user_id)

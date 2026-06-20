@@ -1,4 +1,3 @@
-from email.quoprimime import quote
 import io
 from re import escape as re_escape
 from secrets import choice

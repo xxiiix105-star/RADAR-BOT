@@ -33,8 +33,15 @@ init_store()
 dbn = PGDatabase()
 db = PGDatabase()
 
-loop = asyncio.get_event_loop()
-aiohttpsession = ClientSession(loop=loop)
+try:
+    loop = asyncio.get_event_loop()
+    if loop.is_closed():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+except RuntimeError:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+aiohttpsession = ClientSession()
 
 bot = Client(
     "supun",
