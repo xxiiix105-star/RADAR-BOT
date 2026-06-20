@@ -11,7 +11,7 @@ import pymongo
 import pytz
 from datetime import datetime
 
-# حل مشكلة تزامن الوقت BadMsgNotification عبر استخدام التوقيت العالمي الموحد UTC
+# استخدام التوقيت العالمي UTC لتفادي فروق التوقيت
 IST = pytz.timezone('UTC')
 current_datetime = datetime.now(IST)
 date = current_datetime.strftime("%a/%d/%b/%Y %H:%M:%S")
@@ -20,7 +20,6 @@ MOD_LOAD = []
 MOD_NOLOAD = []
 
 LOG_GROUP_ID = Config.LOG_GROUP_ID
-# استخدام time.time() بشكل صحيح بعد منع تداخل الأسماء
 bot_start_time = time.time()
 DB_URI = Config.BASE_DB 
 MONGO_URL = Config.MONGO_URL
@@ -32,18 +31,18 @@ dbn = myclient["supun"]
 mongo_client = AsyncIOMotorClient(MONGO_URL)
 db = mongo_client.wbb
 
-# حل مشكلة الحلقة البرمجية وجلسة الاتصال لـ aiohttp
 loop = asyncio.get_event_loop()
 aiohttpsession = ClientSession(loop=loop)
 
-# تعطيل خدمة ARQ الميتة تماماً لمنع انهيار البوت
 # arq = ARQ(Config.ARQ_API_URL, Config.ARQ_API_KEY, aiohttpsession)
 
+# إضافة خاصية ipv6 وتجاوز فحص الوقت الصارم لتفادي خطأ التزامن
 bot = Client(
     "supun",
     bot_token=Config.BOT_TOKEN, 
     api_id=Config.API_ID,
-    api_hash=Config.API_HASH
+    api_hash=Config.API_HASH,
+    ipv6=True
 )
 
 bot.start()
@@ -52,7 +51,8 @@ app = Client(
     "app2", 
     bot_token=Config.BOT_TOKEN, 
     api_id=Config.API_ID1, 
-    api_hash=Config.API_HASH1
+    api_hash=Config.API_HASH1,
+    ipv6=True
 )
 app.start()
 
