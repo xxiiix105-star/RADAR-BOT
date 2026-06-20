@@ -24,7 +24,10 @@ import random
 
 from captcha.image import ImageCaptcha
 
-from EmojiCaptcha import Captcha as emoji_captcha
+try:
+    from EmojiCaptcha import Captcha as emoji_captcha
+except ImportError:
+    emoji_captcha = None
 
 import uuid
 

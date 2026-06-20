@@ -1,7 +1,7 @@
 import requests
 from pyrogram import filters
 from pyrogram.types import Message
-from googletrans import Translator
+from gpytranslate import SyncTranslator
 from Rose import app,BOT_ID
 from Rose.utils.filter_groups import cbot
 from lang import get_command
@@ -12,7 +12,7 @@ from Rose.utils.custom_filters import admin_filter
 from button import Chat_Bot
 
 
-tr = Translator()
+tr = SyncTranslator()
 CBOT = get_command("CBOT")
 CBOTA = get_command("CBOTA")
 
