@@ -13,6 +13,7 @@ Commands (owner-only):
 
 import asyncio
 import logging
+from typing import Optional
 
 from pyrogram import filters
 from pyrogram.errors import (
@@ -54,7 +55,7 @@ def _owner_only(_, __, m: Message) -> bool:
 owner_filter = filters.create(_owner_only)
 
 
-async def _send_and_pin(chat_id: int, origin: Message, text: str | None) -> str:
+async def _send_and_pin(chat_id: int, origin: Message, text: Optional[str]) -> str:
     """
     Send a message to chat_id and pin it.
     Returns 'ok', 'send_failed', or 'pin_failed'.
@@ -174,7 +175,7 @@ async def cmd_pinnotice(_, message: Message):
             "⚠️ توجد عملية جارية. استخدم /stopp لإيقافها أولاً."
         )
 
-    text: str | None = None
+    text: Optional[str] = None
     if not message.reply_to_message:
         parts = message.text.split(None, 1)
         if len(parts) < 2:

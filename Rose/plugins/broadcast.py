@@ -13,6 +13,7 @@ Commands:
 
 import asyncio
 import logging
+from typing import Optional
 
 from pyrogram import filters
 from pyrogram.errors import (
@@ -56,7 +57,7 @@ def _owner_only(_, __, m: Message) -> bool:
 owner_filter = filters.create(_owner_only)
 
 
-async def _send_one(chat_id: int, origin: Message, text: str | None) -> bool:
+async def _send_one(chat_id: int, origin: Message, text: Optional[str]) -> bool:
     """
     Send a single message to chat_id.
     Returns True on success, False on expected failure.
@@ -98,7 +99,7 @@ async def _send_one(chat_id: int, origin: Message, text: str | None) -> bool:
 async def _broadcast_loop(
     targets: list[int],
     origin: Message,
-    text: str | None,
+    text: Optional[str],
     status_msg: Message,
     label: str,
 ) -> tuple[int, int, int]:
@@ -141,7 +142,7 @@ async def _run_broadcast(message: Message, send_users: bool, send_groups: bool):
         )
 
     # Determine message content
-    text: str | None = None
+    text: Optional[str] = None
     if not message.reply_to_message:
         parts = message.text.split(None, 1)
         if len(parts) < 2:
