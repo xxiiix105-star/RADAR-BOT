@@ -4,11 +4,11 @@ from inspect import getfullargspec
 from aiohttp import ClientSession
 from pyrogram import Client
 from pyrogram.types import Message
-from Python_ARQ import ARQ
 from config import Config
 import pytz
 from datetime import datetime
 
+# استخدام التوقيت العالمي لضبط التزامن
 IST = pytz.timezone('UTC')
 current_datetime = datetime.now(IST)
 date = current_datetime.strftime("%a/%d/%b/%Y %H:%M:%S")
@@ -19,21 +19,21 @@ MOD_NOLOAD = []
 LOG_GROUP_ID = Config.LOG_GROUP_ID
 bot_start_time = time.time()
 DB_URI = Config.BASE_DB
-MONGO_URL = Config.MONGO_URL
 OWNER_ID = Config.OWNER_ID
 
-# Initialize PostgreSQL pool
-from Rose.db.pg_store import get_pool, PGDatabase, init_store
+# تهيئة مخزن وقاعدة بيانات PostgreSQL بالمسار الجديد المستقر
+from shaheen.db.pg_store import get_pool, PGDatabase, init_store
 get_pool()
 init_store()
 
-# Replace MongoDB clients with PostgreSQL-backed objects
+# استبدال كائنات الـ MongoDB بكائنات الـ PostgreSQL الجديدة
 dbn = PGDatabase()
 db = PGDatabase()
 
 loop = asyncio.get_event_loop()
 aiohttpsession = ClientSession(loop=loop)
 
+# 1. تعريف وتشغيل البوت الأساسي مع تصفير فارق الوقت فوراً
 bot = Client(
     "supun",
     bot_token=Config.BOT_TOKEN,
@@ -45,6 +45,7 @@ bot = Client(
 bot.start()
 bot.session.session_time_offset = 0
 
+# 2. تعريف وتشغيل الحساب المساعد مع تصفير فارق الوقت فوراً
 app = Client(
     "app2",
     bot_token=Config.BOT_TOKEN,
@@ -72,3 +73,4 @@ async def eor(msg: Message, **kwargs):
     )
     spec = getfullargspec(func.__wrapped__).args
     return await func(**{k: v for k, v in kwargs.items() if k in spec})
+
