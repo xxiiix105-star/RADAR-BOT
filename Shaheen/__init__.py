@@ -4,7 +4,6 @@ from inspect import getfullargspec
 from aiohttp import ClientSession
 from pyrogram import Client
 from pyrogram.types import Message
-from Python_ARQ import ARQ
 from config import Config
 import pytz
 from datetime import datetime

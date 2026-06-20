@@ -22,7 +22,7 @@ DB_URI = Config.BASE_DB
 OWNER_ID = Config.OWNER_ID
 
 # تهيئة مخزن وقاعدة بيانات PostgreSQL بالمسار الجديد المستقر
-from shaheen.db.pg_store import get_pool, PGDatabase, init_store
+from Shaheen.db.pg_store import get_pool, PGDatabase, init_store
 get_pool()
 init_store()
 

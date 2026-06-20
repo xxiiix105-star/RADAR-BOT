@@ -12,6 +12,7 @@ from pyrogram import (
     idle
 )
 from pyrogram.types import (
+    BotCommand,
     InlineKeyboardButton,
     InlineKeyboardMarkup, 
     Message
@@ -83,6 +84,35 @@ async def start_bot():
 |         (C) 2021-2022 by @szteambots        | 
 |          Greetings from supun  :)           |
 |_____________________________________________| """)
+
+    # Auto-register bot commands menu so shortcuts appear without manual BotFather setup
+    try:
+        bot_cmds = [
+            BotCommand("start",       "Start the bot"),
+            BotCommand("help",        "Get help menu"),
+            BotCommand("ban",         "Ban a user"),
+            BotCommand("kick",        "Kick a user"),
+            BotCommand("mute",        "Mute a user"),
+            BotCommand("warn",        "Warn a user"),
+            BotCommand("adminlist",   "List group admins"),
+            BotCommand("filter",      "Add a message filter"),
+            BotCommand("filters",     "View active filters"),
+            BotCommand("notes",       "View saved notes"),
+            BotCommand("save",        "Save a note"),
+            BotCommand("rules",       "Show group rules"),
+            BotCommand("lock",        "Lock a chat permission"),
+            BotCommand("unlock",      "Unlock a chat permission"),
+            BotCommand("flood",       "Configure anti-flood"),
+            BotCommand("captcha",     "Toggle captcha for new members"),
+            BotCommand("lang",        "Change bot language"),
+            BotCommand("connections", "Manage group connections"),
+            BotCommand("approve",     "Approve a user"),
+            BotCommand("blacklist",   "View blacklisted words"),
+        ]
+        await app.set_bot_commands(bot_cmds)
+        print("✅ Bot commands menu registered successfully.")
+    except Exception as e:
+        print(f"⚠️  Could not set bot commands: {e}")
     await idle()
     await aiohttpsession.close()
     print("Stopping clients")

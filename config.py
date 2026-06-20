@@ -5,9 +5,9 @@ from pyrogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 
 class Config(object):
         #Your telegram BOT username(without @) : get it from @BotFather
-        BOT_USERNAME = environ.get("GrandmaGertrude_bot")
+        BOT_USERNAME = environ.get("BOT_USERNAME")
         #Your telegram BOT API token : get it from @BotFather
-        BOT_TOKEN = environ.get("7198587941:AAEQ2A3krDxrEtgf2hGuNgGYICd5sQoODUg")
+        BOT_TOKEN = environ.get("BOT_TOKEN")
         #API_ID of your Telegram Account my.telegram.org/apps
         API_ID = int(environ.get("API_ID", 0))
         #API_HASH of your Telegram Account my.telegram.org/apps
