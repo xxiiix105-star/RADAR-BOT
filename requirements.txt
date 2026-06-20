@@ -1,5 +1,5 @@
-pymongo[srv]
-motor==3.0.0
+pymongo==3.12.3
+motor==2.5.1
 psutil==5.9.1
 TgCrypto
 pykeyboard==0.1.5
