@@ -36,6 +36,7 @@ aiohttpsession = ClientSession(loop=loop)
 
 # arq = ARQ(Config.ARQ_API_URL, Config.ARQ_API_KEY, aiohttpsession)
 
+# 1. تعريف كائن البوت الأساسي
 bot = Client(
     "supun",
     bot_token=Config.BOT_TOKEN, 
@@ -44,11 +45,14 @@ bot = Client(
     ipv6=True
 )
 
-# إجبار الكلاينت على تعديل فارق الوقت تلقائياً مع تليجرام قبل تشغيل الدالة المستمرة
-bot.session.session_time_offset = 0
-
+# 2. تشغيل البوت أولاً لإنشاء الـ session
 bot.start()
 
+# 3. الآن نقوم بتعديل فارق الوقت بسلام بعد تشغيل الجلسة
+bot.session.session_time_offset = 0
+
+
+# 4. تعريف كائن الحساب المساعد
 app = Client(
     "app2", 
     bot_token=Config.BOT_TOKEN, 
@@ -57,9 +61,12 @@ app = Client(
     ipv6=True
 )
 
+# 5. تشغيل الحساب المساعد
+app.start()
+
+# 6. تعديل فارق الوقت للحساب المساعد
 app.session.session_time_offset = 0
 
-app.start()
 
 x = app.get_me()
 
