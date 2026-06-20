@@ -2,16 +2,13 @@ import asyncio
 import time
 from inspect import getfullargspec
 from aiohttp import ClientSession
-from motor.motor_asyncio import AsyncIOMotorClient
 from pyrogram import Client
 from pyrogram.types import Message
 from Python_ARQ import ARQ
 from config import Config
-import pymongo
 import pytz
 from datetime import datetime
 
-# استخدام التوقيت العالمي UTC لتفادي فروق التوقيت
 IST = pytz.timezone('UTC')
 current_datetime = datetime.now(IST)
 date = current_datetime.strftime("%a/%d/%b/%Y %H:%M:%S")
@@ -21,52 +18,43 @@ MOD_NOLOAD = []
 
 LOG_GROUP_ID = Config.LOG_GROUP_ID
 bot_start_time = time.time()
-DB_URI = Config.BASE_DB 
+DB_URI = Config.BASE_DB
 MONGO_URL = Config.MONGO_URL
 OWNER_ID = Config.OWNER_ID
 
-myclient = pymongo.MongoClient(DB_URI)
-dbn = myclient["supun"]
+# Initialize PostgreSQL pool
+from Rose.db.pg_store import get_pool, PGDatabase, init_store
+get_pool()
+init_store()
 
-mongo_client = AsyncIOMotorClient(MONGO_URL)
-db = mongo_client.wbb
+# Replace MongoDB clients with PostgreSQL-backed objects
+dbn = PGDatabase()
+db = PGDatabase()
 
 loop = asyncio.get_event_loop()
 aiohttpsession = ClientSession(loop=loop)
 
-# arq = ARQ(Config.ARQ_API_URL, Config.ARQ_API_KEY, aiohttpsession)
-
-# 1. تعريف كائن البوت الأساسي
 bot = Client(
     "supun",
-    bot_token=Config.BOT_TOKEN, 
+    bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID,
     api_hash=Config.API_HASH,
     ipv6=True
 )
 
-# 2. تشغيل البوت أولاً لإنشاء الـ session
 bot.start()
-
-# 3. الآن نقوم بتعديل فارق الوقت بسلام بعد تشغيل الجلسة
 bot.session.session_time_offset = 0
 
-
-# 4. تعريف كائن الحساب المساعد
 app = Client(
-    "app2", 
-    bot_token=Config.BOT_TOKEN, 
-    api_id=Config.API_ID1, 
+    "app2",
+    bot_token=Config.BOT_TOKEN,
+    api_id=Config.API_ID1,
     api_hash=Config.API_HASH1,
     ipv6=True
 )
 
-# 5. تشغيل الحساب المساعد
 app.start()
-
-# 6. تعديل فارق الوقت للحساب المساعد
 app.session.session_time_offset = 0
-
 
 x = app.get_me()
 
@@ -84,4 +72,3 @@ async def eor(msg: Message, **kwargs):
     )
     spec = getfullargspec(func.__wrapped__).args
     return await func(**{k: v for k, v in kwargs.items() if k in spec})
-    

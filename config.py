@@ -9,21 +9,21 @@ class Config(object):
         #Your telegram BOT API token : get it from @BotFather
         BOT_TOKEN = environ.get("7198587941:AAEQ2A3krDxrEtgf2hGuNgGYICd5sQoODUg")
         #API_ID of your Telegram Account my.telegram.org/apps
-        API_ID = int(environ.get("API_ID"))
+        API_ID = int(environ.get("API_ID", 0))
         #API_HASH of your Telegram Account my.telegram.org/apps
         API_HASH = environ.get("API_HASH")
         #API_ID of your Telegram Account my.telegram.org/apps
-        API_ID1 = int(environ.get("API_ID1"))
+        API_ID1 = int(environ.get("API_ID1", environ.get("API_ID", 0)))
         #API_HASH of your Telegram Account my.telegram.org/apps
-        API_HASH1 = environ.get("API_HASH1")
+        API_HASH1 = environ.get("API_HASH1", environ.get("API_HASH"))
         #Your telegram user id
         OWNER_ID = environ.get("OWNER_ID")
         #For logs channel to note down important bot level events, recommend to make this public. ex: '-123456'
         LOG_GROUP_ID = environ.get("LOG_GROUP_ID")
-        #Get From Here.https://www.mongodb.com/ (Same as MONGO_URL but give differant value for this) 
-        BASE_DB = environ.get("BASE_DB")
+        #Get From Here.https://www.mongodb.com/ (Same as MONGO_URL but give differant value for this)
+        BASE_DB = environ.get("BASE_DB", "")
         #Get From Here.https://www.mongodb.com/
-        MONGO_URL = environ.get("MONGO_URL")
+        MONGO_URL = environ.get("MONGO_URL", "")
         #Don't change this value:https://arq.hamker.in
         ARQ_API_URL = environ.get("ARQ_API_URL")
         #Get this from @ARQRobot.
@@ -32,6 +32,10 @@ class Config(object):
         COMMAND_PREFIXES = environ.get("COMMAND_PREFIXES")
         #The Telegram channel id you want focus user.(User can't start your bot without join it)
         F_SUB_CHANNEL = environ.get("F_SUB_CHANNEL")
+        #PostgreSQL Database URL
+        DATABASE_URL = environ.get("DATABASE_URL")
+        #Anthropic API Key for AI features
+        ANTHROPIC_API_KEY = environ.get("ANTHROPIC_API_KEY")
 
 class var(object):
         #Rose group start message here 
@@ -121,4 +125,3 @@ Your unfriendly neighbourhood grandma bitch """
                         ]
                 ]
 )
-        
