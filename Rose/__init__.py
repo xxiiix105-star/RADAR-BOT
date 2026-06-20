@@ -33,10 +33,12 @@ dbn = myclient["supun"]
 mongo_client = AsyncIOMotorClient(MONGO_URL)
 db = mongo_client.wbb
 
+import asyncio
 loop = asyncio.get_event_loop()
-aiohttpsession = ClientSession()
+aiohttpsession = ClientSession(loop=loop)
 
-arq = ARQ(Config.ARQ_API_URL,Config.ARQ_API_KEY, aiohttpsession)
+#
+#arq = ARQ(Config.ARQ_API_URL,Config.ARQ_API_KEY, aiohttpsession)
 
 bot = Client(
     "supun",
