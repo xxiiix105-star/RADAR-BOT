@@ -16,3 +16,6 @@ pyyaml
 apscheduler
 psutil
 anthropic
+anthropic
+psycopg2-binary
+sqlalchemy
