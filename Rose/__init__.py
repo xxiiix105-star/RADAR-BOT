@@ -19,6 +19,7 @@ MOD_NOLOAD = []
 LOG_GROUP_ID = Config.LOG_GROUP_ID
 bot_start_time = time.time()
 DB_URI = Config.BASE_DB
+MONGO_URL = Config.MONGO_URL
 OWNER_ID = Config.OWNER_ID
 
 # تهيئة مخزن وقاعدة بيانات PostgreSQL بالمسار الجديد المستقر

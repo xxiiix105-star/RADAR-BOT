@@ -3,19 +3,17 @@ from datetime import timedelta
 import dateparser
 from pyrogram import filters
 from pyrogram.types import ChatPermissions,Message
-import pymongo
-from Rose import app,DB_URI
+from Rose import app
 from Rose.utils.filter_groups import nm_g
+from Shaheen.db.pg_store import SyncCollection
 from lang import get_command
 from Rose.utils.commands import command
 from Rose.utils.lang import language
 from Rose.utils.custom_filters import can_change_filter
 from button import Nightmode
 
-myapp = pymongo.MongoClient(DB_URI)
-dbx = myapp["supun"]
-nightmod = dbx['nightmodes']
-night = dbx['night']
+nightmod = SyncCollection("nightmodes")
+night    = SyncCollection("night")
 
 NMODE = get_command("NMODE2")
 Night_mode = []

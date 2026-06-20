@@ -1,5 +1,4 @@
 import asyncio
-import pymongo
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton
 from pyrogram.errors.exceptions.bad_request_400 import ChatNotModified
@@ -10,18 +9,13 @@ from Rose.mongo.locksdb import (
     is_b_on,
     remove_chat,
 )
-from Rose import app, app as pbot, MONGO_URL as  MONGO_DB_URI,LOG_GROUP_ID
+from Rose import app, app as pbot, LOG_GROUP_ID
 from Rose.utils.custom_filters import admin_filter
 from button import Locks
-from Rose.core.decorators.permissions import current_chat_permissions,member_permissions
+from Rose.core.decorators.permissions import current_chat_permissions, member_permissions
+from Shaheen.db.pg_store import SyncCollection
 
-
-#====== Mongo database =========
-client = pymongo.MongoClient(MONGO_DB_URI)
-dbd = client["szrosebot"]
-db = dbd
-lockdb = db.lockdb1
-#================================
+lockdb = SyncCollection("lockdb1")
 
 data = {
     "video": "vid",
