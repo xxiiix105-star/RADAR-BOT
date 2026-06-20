@@ -111,7 +111,6 @@ Use the buttons below to get started, or add me to your group and let me do the 
                         ]
                 ]
 )
-        #Shaheen private start button menu here
         home_keyboard_pm = InlineKeyboardMarkup(
                 [
                         [
@@ -122,10 +121,37 @@ Use the buttons below to get started, or add me to your group and let me do the 
                                 InlineKeyboardButton(text="🇵🇸 Languages",callback_data="_langs")
                         ],
                         [
-                                InlineKeyboardButton(text="Help Menu ⚒",callback_data="bot_commands")
+                                InlineKeyboardButton(text="Help Menu ⚒",callback_data="bot_commands"),
+                                InlineKeyboardButton(text="👨‍💻 Developer",callback_data="_developer")
                         ],
                         [
                                 InlineKeyboardButton(text="📢 News Channel",url=f"https://t.me/shaheen_ys")
                         ]
                 ]
 )
+
+        @staticmethod
+        def build_home_keyboard(lang_dict: dict) -> InlineKeyboardMarkup:
+                """Return a home keyboard with buttons translated via lang_dict."""
+                dev_label  = lang_dict.get("dev_btn_label", "👨‍💻 Developer")
+                return InlineKeyboardMarkup(
+                        [
+                                [
+                                        InlineKeyboardButton(
+                                                text="🇵🇸 Add Me To Your Group",
+                                                url=f"http://t.me/{Config.BOT_USERNAME}?startgroup=new"
+                                        )
+                                ],
+                                [
+                                        InlineKeyboardButton(text="About ✨",    callback_data="_about"),
+                                        InlineKeyboardButton(text="🇵🇸 Languages", callback_data="_langs")
+                                ],
+                                [
+                                        InlineKeyboardButton(text="Help Menu ⚒", callback_data="bot_commands"),
+                                        InlineKeyboardButton(text=dev_label,      callback_data="_developer")
+                                ],
+                                [
+                                        InlineKeyboardButton(text="📢 News Channel", url="https://t.me/shaheen_ys")
+                                ]
+                        ]
+                )

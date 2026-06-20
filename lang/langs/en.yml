@@ -314,7 +314,7 @@ warn6 : "There are no warns to clear"
 warn7 : "Are you sure you want to remove all the warns of all the users in this chat?\nThis action is irreversible!!!"
 warn8 : "This user is an admin in this chat, they don't have any warns!"
 warn9 : "This user has no warnings!"
-warn10 : Bruh how am I supposed to remove warn for someone who doesn't even exist?? \nReply to some user's message or give me a username or I'd to unwarn them."
+warn10 : "Bruh how am I supposed to remove warn for someone who doesn't even exist?? \nReply to some user's message or give me a username or I'd to unwarn them."
 warn11 : "This user is an admin in this chat, they don't have any warns!"
 warn12 : "This user has no warnings!"
 warn13 : "Warn Mode has been set to: {}"
@@ -346,12 +346,6 @@ rules3 : "Provide some text to set as rules!!"
 rules4 : "Successfully set rules for this group."
 rules5 : "Please check help on how to use this command."
 
-#plugin flod.py
-flood1 : "Usage: /flood [ENABLE|DISABLE]"
-flood2 : "I will Mute all the users sending more than 10 messages in a row for 5 minutes only"
-flood3 : "Ok disabled now I'll not mute users who send 10 messages in a row."
-flood4 : "Unknown Suffix, Use /flood [ENABLE|DISABLE]"
-
 #plugin filters
 filter1 : "Make sure I'm present in your group!!"
 filter2 : "I'm not connected to any groups!"
@@ -372,6 +366,11 @@ btn_afk:       "💤 AFK"
 btn_fsub:      "📢 F-Sub"
 btn_disabling: "🚫 Disabling"
 btn_whisper:   "🤫 Whisper"
+
+# Developer section
+btn_developer : "👨‍💻 Developer"
+dev_btn_label : "👨‍💻 Developer"
+dev_text : "👨‍💻 **Developer**\n\nHello! I'm the developer of **Shaheen Bot** — a powerful Telegram group management assistant.\n\nFeel free to reach out or follow me on social media for updates and news."
 
 # ── Help-menu button labels (btn_* keys) ─────────────────────────────────────
 btn_admin:       "👮 Admin"

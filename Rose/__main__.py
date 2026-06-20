@@ -181,7 +181,7 @@ async def start(client, message: Message, _):
             await message.reply(var.Connection_text_start)
     else:
         user_mention = message.from_user.mention
-        await message.reply_text(var.pm_start_text.format(user_mention,BOT_NAME),reply_markup=var.home_keyboard_pm)
+        await message.reply_text(var.pm_start_text.format(user_mention,BOT_NAME),reply_markup=var.build_home_keyboard(_))
         return await add_served_user(chat_id) 
 
 @app.on_callback_query(filters.regex("_langs"))
@@ -244,10 +244,17 @@ async def help_command(client, message: Message, _):
 @languageCB
 async def startcq(client,CallbackQuery, _):
     user_mention = CallbackQuery.from_user.mention
-    await CallbackQuery.message.edit(
-        text=var.pm_start_text.format(user_mention,BOT_NAME),
-        disable_web_page_preview=True,
-        reply_markup=var.home_keyboard_pm)
+    try:
+        await CallbackQuery.message.edit(
+            text=var.pm_start_text.format(user_mention,BOT_NAME),
+            disable_web_page_preview=True,
+            reply_markup=var.build_home_keyboard(_))
+    except Exception:
+        await app.send_message(
+            chat_id=CallbackQuery.message.chat.id,
+            text=var.pm_start_text.format(user_mention,BOT_NAME),
+            disable_web_page_preview=True,
+            reply_markup=var.build_home_keyboard(_))
 
 async def help_parser(name, keyboard=None):
     if not keyboard:

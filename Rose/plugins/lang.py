@@ -82,6 +82,7 @@ MODULE_BTN_KEYS = [
     ("f-sub",       "btn_fsub"),
     ("disabling",   "btn_disabling"),
     ("whisper",     "btn_whisper"),
+    ("developer",   "btn_developer"),
 ]
 
 # English fallbacks — used when a language file is missing a btn_* key.
@@ -113,6 +114,7 @@ BTN_FALLBACKS = {
     "btn_fsub":        "📢 F-Sub",
     "btn_disabling":   "🚫 Disabling",
     "btn_whisper":     "🤫 Whisper",
+    "btn_developer":   "👨‍💻 Developer",
 }
 
 
