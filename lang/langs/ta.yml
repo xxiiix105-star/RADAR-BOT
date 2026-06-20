@@ -384,3 +384,7 @@ btn_tagalert:    "🔔 டேக் எச்சரிக்கை"
 btn_sticker:     "🎭 ஸ்டிக்கர்"
 
 back: "« பின்செல்"
+btn_afk:       "💤 AFK"
+btn_fsub:      "📢 కట్టాయ సభ్యత్వం"
+btn_disabling: "🚫 నిష్క్రియం"
+btn_whisper:   "🤫 గుసగుస"

@@ -1,0 +1,1 @@
+- [HELPABLE shared dict](helpable-shared-dict.md) — HELPABLE must live in Rose/__init__.py; re-importing Rose.__main__ yields a stale empty copy.

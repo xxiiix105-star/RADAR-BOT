@@ -1,10 +1,17 @@
 import asyncio
 import importlib
+import logging
 import re
 from contextlib import (
     closing,
     suppress
 )
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+logging.getLogger("Rose.plugins.lang").setLevel(logging.DEBUG)
 from Rose.utils.lang import *
 from uvloop import install
 from pyrogram import ( 
@@ -22,7 +29,8 @@ from Rose import (
     BOT_USERNAME,
     bot,
     BOT_NAME,
-    aiohttpsession
+    aiohttpsession,
+    HELPABLE,
 )
 from Rose.plugins import ALL_MODULES
 from Rose.utils import paginate_modules
@@ -46,11 +54,11 @@ from config import Config
 loop = asyncio.get_event_loop()
 
 flood = {}
-HELPABLE = {}
+# HELPABLE is now the shared dict in Rose/__init__.py — imported above.
+# Do NOT re-declare it here; doing so would create a local copy that lang.py
+# cannot see, causing "dead keyboard" (no module buttons after language switch).
 
 async def start_bot():
-    global HELPABLE
-
     # Pre-seed MsgId with real system time to fix BadMsgNotification [16]
     import time as _time
     from pyrogram.session.internals.msg_id import MsgId

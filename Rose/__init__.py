@@ -15,6 +15,11 @@ date = current_datetime.strftime("%a/%d/%b/%Y %H:%M:%S")
 MOD_LOAD = []
 MOD_NOLOAD = []
 
+# Shared registry populated by __main__.start_bot() after all plugins load.
+# Stored here (not in __main__) so every plugin can import it by name
+# without triggering a re-import of __main__ that would yield a stale copy.
+HELPABLE: dict = {}
+
 LOG_GROUP_ID = Config.LOG_GROUP_ID
 bot_start_time = time.time()
 DB_URI = Config.BASE_DB

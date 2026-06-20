@@ -385,3 +385,7 @@ btn_tagalert:    "🔔 టాగ్ హెచ్చరిక"
 btn_sticker:     "🎭 స్టిక్కర్"
 
 back: "« వెనక్కి"
+btn_afk:       "💤 AFK"
+btn_fsub:      "📢 கட்டாய சந்தா"
+btn_disabling: "🚫 முடக்கு"
+btn_whisper:   "🤫 கிசுகிசு"
